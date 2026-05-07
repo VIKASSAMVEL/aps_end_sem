@@ -389,13 +389,13 @@ public class LongestSubarrayLimit {
         Deque<Integer> minD = new LinkedList<>();
         int i = 0, j;
         for (j = 0; j < nums.length; j++) {
-            while (!maxD.isEmpty() && nums[j] > maxD.peekLast()) maxD.pollLast();
-            while (!minD.isEmpty() && nums[j] < minD.peekLast()) minD.pollLast();
-            maxD.addLast(nums[j]);
-            minD.addLast(nums[j]);
-            if (maxD.peekFirst() - minD.peekFirst() > limit) {
-                if (maxD.peekFirst() == nums[i]) maxD.pollFirst();
-                if (minD.peekFirst() == nums[i]) minD.pollFirst();
+            while (!maxD.isEmpty() && nums[j] > nums[maxD.peekLast()]) maxD.pollLast();
+            while (!minD.isEmpty() && nums[j] < nums[minD.peekLast()]) minD.pollLast();
+            maxD.addLast(j);
+            minD.addLast(j);
+            while (nums[maxD.peekFirst()] - nums[minD.peekFirst()] > limit) {
+                if (maxD.peekFirst() == i) maxD.pollFirst();
+                if (minD.peekFirst() == i) minD.pollFirst();
                 i++;
             }
         }
@@ -883,7 +883,7 @@ public class ReverseBits {
         for (int i = 0; i < 32; i++) {
             res <<= 1;
             res |= (n & 1);
-            n >>= 1;
+            n >>>= 1;
         }
         return res;
     }
@@ -1012,5 +1012,4 @@ public class Permutations {
     }
 }
 ```
-
 
